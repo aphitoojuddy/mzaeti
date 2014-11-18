@@ -1,8 +1,10 @@
 /*------------------------------------------------------------------
 Project:    Paperclip
 Author:     Yevgeny S.
+Modified by:Rudi Simamora
 URL:        http://simpleqode.com/
             https://twitter.com/YevSim
+            http://monkeyzap.com
 Version:    1.1
 Created:        11/03/2014
 Last change:    14/08/2014
@@ -2283,6 +2285,9 @@ table th[class*="col-"] {
   .table-responsive > .table-bordered > tfoot > tr:last-child > td {
     border-bottom: 0;
   }
+  .mtop-40 {
+    margin-top: 20px;
+  }
 }
 fieldset {
   padding: 0;
@@ -3816,6 +3821,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-fixed-bottom .navbar-collapse {
     max-height: 200px;
   }
+  .mtop-40 {
+    margin-top: 20px;
+  }
 }
 .container > .navbar-header,
 .container-fluid > .navbar-header,
@@ -3940,6 +3948,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus {
     background-image: none;
+  }
+  .mtop-40 {
+    margin-top: 20px;
   }
 }
 @media (min-width: 768px) {
@@ -5298,7 +5309,8 @@ a.list-group-item-danger.active:focus {
   border: 0;
 }
 .embed-responsive.embed-responsive-16by9 {
-  padding-bottom: 56.25%;
+  /*padding-bottom: 56.25%;*/
+  padding-bottom: 34.25%;
 }
 .embed-responsive.embed-responsive-4by3 {
   padding-bottom: 75%;
@@ -8485,4 +8497,8 @@ footer .tweet > p > a {
   footer h4 {
     margin-top: 20px;
   }
+}
+
+.mtop-40 {
+  margin-top: 40px;
 }
