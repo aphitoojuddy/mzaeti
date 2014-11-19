@@ -20,13 +20,13 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		$data = array(
-					'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
+					'page_title'	=> 'AETI - Site Administration'
 				);
 
-		$this->load->view('mzadm/header', $data);
-		$this->load->view('mzadm/navigation');
-		$this->load->view('mzadm/home', $data);
-		$this->load->view('mzadm/footer', $data);
+		// $this->load->view('mzadm/header', $data);
+		// $this->load->view('mzadm/navigation');
+		$this->load->view('mzadm/dashboard', $data);
+		// $this->load->view('mzadm/footer', $data);
 	}
 }
 
