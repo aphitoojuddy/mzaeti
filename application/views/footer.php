@@ -45,7 +45,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="copyright">
-            Copyright 2014 - AETI by <a href="https://monkeyzap.com">Monkeyzap</a> | All Rights Reserved
+            Copyright 2014 - AETI by <a href="http://monkeyzap.com">Monkeyzap</a> | All Rights Reserved
           </div>
         </div>
       </div>  <!-- / .row -->

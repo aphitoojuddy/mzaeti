@@ -41,7 +41,10 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
-$route['mzadm'] = "dashboard";
+$route['mzadm'] = "mzadm/dashboard";
+$route['mzadm/login'] = "mzadm/dashboard/login";
+$route['mzadm/logout'] = "mzadm/dashboard/logout";
+$route['mzadm/forgot'] = "mzadm/dashboard/forgot";
 $route['mzadm/(:any)'] = "mzadm/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
