@@ -52,6 +52,17 @@
 						<a href="<?=site_url('mzadm/category');?>"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Category</span></a>
 					</li>
 					<li>
+						<a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">User</span></a>
+						<ul>
+							<li>
+								<a href="<?=site_url('mzadm/user');?>">View All</a>
+							</li>
+							<li>
+								<a href="<?=site_url('mzadm/user/add');?>">Add User</a>
+							</li>
+						</ul>
+					</li>
+					<li>
 						<a href="<?=site_url('mzadm/setting');?>"><i class="fa fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent">Settings</span></a>
 					</li>
 				</ul>

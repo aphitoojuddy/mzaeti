@@ -67,8 +67,8 @@
 		<!-- <script src="<?=js_url('mzadm/smart-chat-ui/smart.chat.ui.min.js')?>"></script> -->
 		<!-- <script src="<?=js_url('mzadm/smart-chat-ui/smart.chat.manager.min.js')?>"></script> -->
 
-		<!-- PAGE RELATED PLUGIN(S) 
-		<script src="..."></script>-->
+		<!-- PAGE RELATED PLUGIN(S) -->
+		<?=$page_js?>
 
 		<script type="text/javascript">
 
@@ -125,6 +125,7 @@
 				 * loadScript(".../plugin.js", run_after_loaded);
 				 */
 				
+				<?=$extra_js?>
 			})
 		
 		</script>

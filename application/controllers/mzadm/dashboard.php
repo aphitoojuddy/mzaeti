@@ -30,13 +30,18 @@ class Dashboard extends CI_Controller {
 					'user_name' => $this->session->userdata('user_displayname')
 				);
 
+		$f_data = array(
+					'page_js'		=> '',
+					'extra_js'		=> ''
+				);
+
 		$view_files = array(
 					'mzadm/header' => $h_data, 
 					'mzadm/headerBlock' => '',
 					'mzadm/navigation' => $n_data,
 					'mzadm/dashboard' => '',
 					'mzadm/footerBlock' => '',
-					'mzadm/footer' => ''
+					'mzadm/footer' => $f_data
 				);
 		$this->load_views($view_files);
 	}
@@ -62,14 +67,15 @@ class Dashboard extends CI_Controller {
 					'page_css'		=> $page_css
 				);
 
-		$data = array(
-					'page_js'		=> ''
+		$f_data = array(
+					'page_js'		=> '',
+					'extra_js'		=> ''
 				);
 
 		$view_files = array(
 					'mzadm/header' => $h_data, 
-					'mzadm/login' => $data,
-					'mzadm/footer' => ''
+					'mzadm/login' => '',
+					'mzadm/footer' => $f_data
 				);
 		$this->load_views($view_files);
 	}
