@@ -2,6 +2,8 @@
 <html lang="en-us" id="<?=$page_id;?>">
 	<head>
 		<meta charset="utf-8">
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<meta content="utf-8" http-equiv="encoding">
 		<title><?=$page_title;?></title>
 		<meta name="description" content="">
 		<meta name="author" content="">

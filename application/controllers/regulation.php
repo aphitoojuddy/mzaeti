@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Regulations extends CI_Controller {
+class Regulation extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,7 +19,14 @@ class Regulations extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data = array(
+				'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
+			);
+
+		$this->load->view('header', $data);
+		$this->load->view('navigation');
+		$this->load->view('regulation', $data);
+		$this->load->view('footer', $data);
 	}
 }
 

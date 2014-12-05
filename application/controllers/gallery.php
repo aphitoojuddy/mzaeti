@@ -19,7 +19,14 @@ class Gallery extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data = array(
+				'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
+			);
+
+		$this->load->view('header', $data);
+		$this->load->view('navigation');
+		$this->load->view('gallery', $data);
+		$this->load->view('footer', $data);
 	}
 }
 

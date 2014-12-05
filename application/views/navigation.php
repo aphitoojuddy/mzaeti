@@ -20,10 +20,10 @@
               <a href="<?=site_url('home');?>">News</a>
             </li>
             <li class="hidden-sm">
-              <a href="<?=site_url('home');?>">Regulation</a>
+              <a href="<?=site_url('regulation');?>">Regulation</a>
             </li>
             <li class="hidden-sm">
-              <a href="<?=site_url('home');?>">Gallery</a>
+              <a href="<?=site_url('gallery');?>">Gallery</a>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>

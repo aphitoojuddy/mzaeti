@@ -29,19 +29,16 @@
 								<a href="<?=site_url('mzadm/pages');?>">View All</a>
 							</li>
 							<li>
-								<a href="">Gallery</a>
+								<a href="<?=site_url('mzadm/gallery');?>">Gallery</a>
 							</li>
 							<li>
-								<a href="">News</a>
+								<a href="<?=site_url('mzadm/regulation');?>">News</a>
 							</li>
 							<li>
-								<a href="">Regulation</a>
+								<a href="<?=site_url('mzadm/regulation');?>">Regulation</a>
 							</li>
 							<li>
 								<a href="">About Us</a>
-							</li>
-							<li>
-								<a href="">Contact Us</a>
 							</li>
 							<li>
 								<a href="">Chart.js <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
