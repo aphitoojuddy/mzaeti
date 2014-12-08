@@ -34,7 +34,7 @@
               </ul>
             </li>
             <li class="hidden-sm">
-              <a href="<?=site_url('home');?>">Contact</a>
+              <a href="<?=site_url('contact_us');?>">Contact</a>
             </li>
             <!-- Navbar Search -->
             <li class="hidden-xs" id="navbar-search">

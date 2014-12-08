@@ -32,22 +32,30 @@
 								<a href="<?=site_url('mzadm/gallery');?>">Gallery</a>
 							</li>
 							<li>
-								<a href="<?=site_url('mzadm/regulation');?>">News</a>
+								<a href="<?=site_url('mzadm/news');?>">News</a>
 							</li>
 							<li>
 								<a href="<?=site_url('mzadm/regulation');?>">Regulation</a>
 							</li>
 							<li>
-								<a href="">About Us</a>
-							</li>
-							<li>
-								<a href="">Chart.js <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
+								<a href="#">About Us</a>
+								<ul>
+									<li>
+										<a href="<?=site_url('mzadm/overview');?>"> Organization Overview </a>
+									</li>
+									<li>
+										<a href="<?=site_url('mzadm/structure');?>"> Organization Structure </a>
+									</li>
+									<li>
+										<a href="<?=site_url('mzadm/members');?>"> Our Members </a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="<?=site_url('mzadm/category');?>"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Category</span></a>
-					</li>
+					</li> -->
 					<li>
 						<a href="#"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">User</span></a>
 						<ul>

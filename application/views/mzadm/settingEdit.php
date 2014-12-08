@@ -33,7 +33,7 @@
 				<div class="row">
 					
 					<!-- col -->
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						<h1 class="page-title txt-color-blueDark">
 
 							<!-- PAGE HEADER -->
@@ -42,25 +42,9 @@
 						</h1>
 					</div>
 					<!-- end col -->
-
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-align-right">
-						<div class="page-title">
-							<a href="<?=site_url('mzadm/setting/edit')?>" class="btn btn-default">Edit</a>
-						</div>
-					</div>
 				</div>
 				<!-- end row -->
 				
-				<?php
-					if (!empty($msg_success)) {
-				?>
-				<div class="alert alert-block alert-success fade in">
-					<a class="close" data-dismiss="alert" href="#">×</a>
-					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> <?=$msg_success?></h4>
-				</div>
-				<?php
-					}
-				?>
 				<!--
 					The ID "widget-grid" will start to initialize all widgets below 
 					You do not need to use widgets if you dont want to. Simply remove 
@@ -84,23 +68,50 @@
 							<!-- widget content -->
 							<div class="widget-body">
 		
-								<div class="form-horizontal">
+								<form class="form-horizontal" method="POST" action="<?=site_url('mzadm/setting/edit')?>">
 									<fieldset>
 										<legend>General Information</legend>
 										<?php
 										foreach ($general_setting as $key => $value) {
 										?>
-										<div class="form-group">
+										<div class="form-group <?=(!empty($error_msg[$value->config_var]) ? 'has-error' : '')?>">
 											<label class="col-md-2 control-label"><?=$value->config_display_var?> :</label>
 											<div class="col-md-10">
-												<p><?=$value->config_value?></p>
+												<?php
+												if($value->config_var == 'site_address' || $value->config_var == 'site_desc'){
+												?>
+												<textarea class="form-control" placeholder="" rows="4" name="<?=$value->config_var?>" id="<?=$value->config_var?>"><?=$value->config_value?></textarea>
+												<?php
+												}else{
+												?>
+												<input class="form-control" placeholder="" type="text" name="<?=$value->config_var?>" id="<?=$value->config_var?>" value="<?=$value->config_value?>">
+												<?php
+												}
+												?>
+												<?php echo (!empty($error_msg[$value->config_var]) ? '<span class="help-block"><i class="fa fa-warning"></i>'.$error_msg[$value->config_var].'</span>' : '' ); ?>
 											</div>
 										</div>
 										<?php
 										}
 										?>
 									</fieldset>
-								</div>
+									
+									<div class="form-actions">
+										<div class="row">
+											<div class="col-md-12">
+												<button class="btn btn-default" type="button" onclick="window.history.back();">
+													Cancel
+												</button>
+												<button class="btn btn-primary" type="submit">
+													<i class="fa fa-save"></i>
+													Submit
+												</button>
+											</div>
+										</div>
+									</div>
+		
+								</form>
+		
 							</div>
 							<!-- end widget content -->
 		

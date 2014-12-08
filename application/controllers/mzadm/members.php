@@ -1,21 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Gallery extends CI_Controller {
-	private $page_title = "AETI - Gallery Management";
+class Members extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://aeti.or.id/mzadm/gallery
+	 * 		http://aeti.or.id/mzadm/members
 	 *	- or -  
-	 * 		http://aeti.or.id/mzadm/gallery/index
+	 * 		http://aeti.or.id/mzadm/members/index
 	 *	- or -
 	 * Since this controller is set as the default controller in 
 	 * config/routes.php, it's displayed at http://aeti.or.id/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /gallery/<method_name>
+	 * map to /members/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
@@ -23,116 +22,123 @@ class Gallery extends CI_Controller {
 		$this->_check_session();
 		$this->load->model('article');
 		
-		$gallery_data = $this->article->get_allgallery();
+		$members_data = $this->article->get_allmembers();
+
 		$h_data = array(
 					'page_id'		=> '',
-					'page_title'	=> $this->page_title,
+					'page_title'	=> 'AETI - Members Management',
 					'page_css'		=> ''
 				);
 
 		$n_data = array(
-					'user_name' 	=> $this->session->userdata('user_displayname')
+					'user_name' => $this->session->userdata('user_displayname')
 				);
 
-		$g_data = array(
-					'gallery_data'	=> $gallery_data,
+		$s_data = array(
+					'members_data'	=> $members_data,
 					'msg_success'	=> $this->session->flashdata('msg_success'),
-					'msg_error'		=> $this->session->flashdata('msg_error'),
-					'error_msg'		=> $this->session->flashdata('error_msg')
 				);
 
 		$f_data = array(
-					'page_js'		=> $this->_superbox_js('lib'),
-					'extra_js'		=> $this->_superbox_js('superbox')
+					'page_js'		=> '',
+					'extra_js'		=> ''
 				);
 
 		$view_files = array(
 					'mzadm/header' => $h_data, 
 					'mzadm/headerBlock' => '',
 					'mzadm/navigation' => $n_data,
-					'mzadm/gallery' => $g_data,
+					'mzadm/members' => $s_data,
 					'mzadm/footerBlock' => '',
 					'mzadm/footer' => $f_data
 				);
 		$this->_load_views($view_files);
 	}
 
-	public function add(){
+	public function add()
+	{
 		$this->_check_session();
-		$this->load->library('form_validation');
 
 		$h_data = array(
 					'page_id'		=> '',
-					'page_title'	=> $this->page_title,
+					'page_title'	=> 'AETI - Add News',
 					'page_css'		=> ''
 				);
 
 		$n_data = array(
-					'user_name' 	=> $this->session->userdata('user_displayname')
+					'user_name' => $this->session->userdata('user_displayname')
 				);
 
-		$ga_data = array(
-					'msg_success'	=> '',
+		$m_data = array(
+					'msg_success'	=> $this->session->flashdata('msg_success'),
+					'error_msg'		=> $this->session->flashdata('error_msg'),
 					'step'			=> 0
 				);
 
 		$f_data = array(
-					'page_js'		=> $this->_validate_form_js('lib'),
-					'extra_js'		=> $this->_validate_form_js('addImage')
+					'page_js'		=> $this->_summernote('lib'),
+					'extra_js'		=> $this->_summernote('block')
 				);
 
 		if (!empty($this->uri->rsegment(3)) && is_numeric($this->uri->rsegment(3))) {
-			$this->load->model('image');
-			$image_temp = $this->image->get_image($this->uri->rsegment(3));
+			$this->load->model('article');
+			$image_temp = $this->article->get_member($this->uri->rsegment(3));
 			if (!empty($image_temp)) {
-				$ga_data['step']	= 1;
-				$ga_data['image_temp']	= $image_temp;
+				$m_data['step']	= 1;
+				$m_data['image_temp']	= $image_temp;
 			}
 		}else{
-			$post_data = $this->input->post(NULL, TRUE);
+			$post_data = $this->input->post(NULL);
 			if(!empty($post_data)){
+				// var_dump($post_data);exit;
+				$this->load->library('form_validation');
 				$config = array(
 								array(
-									'field'   => 'i_title',
-									'label'   => 'Title',
+									'field'   => 'i_title_id',
+									'label'   => 'Title in Indonesian',
+									'rules'   => 'trim|required'
+								),
+								array(
+									'field'   => 'i_title_en',
+									'label'   => 'Title in English',
+									'rules'   => 'trim|required'
+								),
+								array(
+									'field'   => 'i_content_id',
+									'label'   => 'Content in Indonesian',
+									'rules'   => 'trim|required'
+								),
+								array(
+									'field'   => 'i_content_en',
+									'label'   => 'Content in English',
 									'rules'   => 'trim|required'
 								)
 							);
 
 				$this->form_validation->set_rules($config);
-
-				$config['upload_path'] = './assets/upload/';
-				$config['allowed_types'] = 'pdf|doc|docx|gif|jpg|png';
-				$config['max_size'] = '0';
-				$config['remove_spaces'] = TRUE;
-
-				$this->load->library('upload', $config);
-				if ($this->form_validation->run() == TRUE && $this->upload->do_upload('i_regulation_file'))
+				if ($this->form_validation->run() == TRUE)
 				{
-					$post_data['excerpt'] = $this->_clean($post_data['i_title']);
-					$post_data['i_regulation_file'] = $this->upload->file_name;
+					$post_data['excerpt'] = $this->_clean($post_data['i_title_id']);
 					$this->load->model('article');
-					$this->article->insert_regulation($post_data);
-					$ra_data['msg_success'] = "Add Image Success";
+					$this->article->insert_news($post_data);
+					$ra_data['msg_success'] = "Add news Success";
 					$this->session->set_flashdata($ra_data);
-					redirect(site_url().'mzadm/regulation', 'location');
+					redirect(site_url().'mzadm/news', 'location');
 				}else{
 					$error_msg = $this->form_validation->error_array();
-					$error_msg['i_regulation_file'] = $this->upload->display_errors('', '');
-					$error = array(
-							'error_msg' => $error_msg
-						);
+					// var_dump($error_msg);exit;
+					$error['error_msg'] = $error_msg;
 					$this->session->set_flashdata($error);
-					redirect(site_url().'mzadm/regulation', 'location');
+					redirect(site_url().'mzadm/news/add', 'location');
 				}
 			}
-
 		}
+
 		$view_files = array(
 					'mzadm/header' => $h_data, 
 					'mzadm/headerBlock' => '',
 					'mzadm/navigation' => $n_data,
-					'mzadm/galleryAdd' => $ga_data,
+					'mzadm/membersAdd' => $m_data,
 					'mzadm/footerBlock' => '',
 					'mzadm/footer' => $f_data
 				);
@@ -144,33 +150,48 @@ class Gallery extends CI_Controller {
 		$this->load->library('form_validation');
 
 		$post_data = $this->input->post(NULL);
-		// var_dump($post_data);	
 		if(!empty($post_data)){
 			$config = array(
 							array(
-								'field'   => 'i_title',
-								'label'   => 'Title',
+								'field'   => 'i_title_id',
+								'label'   => 'Company Name Indonesian',
+								'rules'   => 'trim|required'
+							),
+							array(
+								'field'   => 'i_title_en',
+								'label'   => 'Company Name English',
+								'rules'   => 'trim|required'
+							),
+							array(
+								'field'   => 'i_content_id',
+								'label'   => 'Company Profile in Indonesian',
+								'rules'   => 'trim|required'
+							),
+							array(
+								'field'   => 'i_content_en',
+								'label'   => 'Company Profile in English',
 								'rules'   => 'trim|required'
 							)
 						);
 
 			$this->form_validation->set_rules($config);
 
-			$config['upload_path'] = './assets/img/gallery/';
+			$config['upload_path'] = './assets/img/logo/';
 			$config['allowed_types'] = 'gif|jpg|png';
 			$config['max_size'] = '0';
 			$config['remove_spaces'] = TRUE;
 
 			$this->load->library('upload', $config);
+
 			if ($this->form_validation->run() == TRUE && $this->upload->do_upload('i_image_file'))
 			{
-				$post_data['excerpt'] = $this->_clean($post_data['i_title']);
+				$post_data['excerpt'] = $this->_clean($post_data['i_title_id']);
 				$post_data['i_image_file'] = $this->upload->file_name;
-				$this->load->model('image');
-				$image_temp_id = $this->image->insert_temp_image($post_data);
-				$ra_data['msg_success'] = "Add Image Success";
+				$this->load->model('article');
+				$image_temp_id = $this->article->insert_member_logo($post_data);
+				$ra_data['msg_success'] = "Add Member Success";
 				$this->session->set_flashdata($ra_data);
-				redirect(site_url().'mzadm/gallery/add/'.$image_temp_id, 'location');
+				redirect(site_url().'mzadm/members/add/'.$image_temp_id, 'location');
 			}else{
 				$error_msg = $this->form_validation->error_array();
 				$error_msg['i_image_file'] = $this->upload->display_errors('', '');
@@ -181,54 +202,61 @@ class Gallery extends CI_Controller {
 				$this->session->set_flashdata($error);*/
 			}
 		}
+		redirect(site_url().'mzadm/members/add/', 'location');
 	}
 
 	public function thumbnail(){
 		if (!empty($this->uri->rsegment(3)) && is_numeric($this->uri->rsegment(3))) {
-			$this->load->model('image');
-			$image_temp = $this->image->get_image($this->uri->rsegment(3));
+			$this->load->model('article');
+			$image_temp = $this->article->get_member($this->uri->rsegment(3));
 			if (!empty($image_temp)) {
 				// var_dump($image_temp);
 				// var_dump(getimagesize(img_url('gallery/'.$image_temp->image_path)));
-				$post_data = $this->input->post(NULL, TRUE);
-				// var_dump($post_data);exit;
-
+				$post_data = $this->input->post(NULL);
+				
 				$targ_ori_w = $targ_ori_h = $post_data['ow'];
 				$targ_w = $targ_h = $post_data['w'];
 				$jpeg_quality = 100;
 
-				$src = img_url('gallery/'.$image_temp->image_path);
+				$src = img_url('logo/'.$image_temp->downloadable_content);
 				// echo $src;exit;
-				$img_ori_r = imagecreatefromjpeg($src);
+				if(pathinfo($src, PATHINFO_EXTENSION) == 'png'){
+					$img_ori_r = imagecreatefrompng($src);
+				}else if (pathinfo($src, PATHINFO_EXTENSION) == 'gif') {
+					$img_ori_r = imagecreatefromgif($src);					
+				}else{
+					$img_ori_r = imagecreatefromjpeg($src);
+				}
+
 				$dst_ori_r = ImageCreateTrueColor( $targ_ori_w, $targ_ori_h );
 
 				imagecopyresampled($dst_ori_r,$img_ori_r,0,0,$post_data['ox1'],$post_data['oy1'],$targ_ori_w,$targ_ori_h,$post_data['ow'],$post_data['oh']);
 				// exit;
 				// header('Content-type: image/jpeg');
-				$filepath = './assets/img/gallery/';
-				$bigname = 'big'.$targ_ori_w.'_'.time().'_'.$image_temp->image_path;
+				$filepath = './assets/img/logo/';
+				$bigname = 'big'.$targ_ori_w.'_'.time().'_'.$image_temp->downloadable_content;
 				imagejpeg($dst_ori_r, $filepath.$bigname, $jpeg_quality);
 				
-				$src_r = img_url('gallery/'.$bigname);
+				$src_r = img_url('logo/'.$bigname);
 				$img_r = imagecreatefromjpeg($src_r);
 				$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 				imagecopyresampled($dst_r,$img_r,0,0,0,0,$targ_w,$targ_h,$targ_ori_w,$targ_ori_h);
-				$thumbname = 'thumb'.$targ_w.'_'.time().'_'.$image_temp->image_path;
+				$thumbname = 'thumb'.$targ_w.'_'.time().'_'.$image_temp->downloadable_content;
 				imagejpeg($dst_r, $filepath.$thumbname, $jpeg_quality);
 
 				imagedestroy($dst_ori_r);
 				imagedestroy($dst_r);
 				imagedestroy($img_r);
 
-				$image_temp->excerpt = $this->_clean($image_temp->image_title);
-				$image_temp->image_path = $bigname;
-				$image_temp->thumbnail = $thumbname;
-				$this->load->model('article');
-				$image_id = $this->article->insert_image($image_temp);
+				// $image_temp->excerpt = $this->_clean($image_temp->image_title);
+				$image_temp->downloadable_content = $bigname;
+				$image_temp->downloadable_content_extra = $thumbname;
+				// $this->load->model('article');
+				$image_id = $this->article->update_member($image_temp);
 
-				$ra_data['msg_success'] = "Add Image Success";
+				$ra_data['msg_success'] = "Add Member Success";
 				$this->session->set_flashdata($ra_data);
-				redirect(site_url().'mzadm/gallery', 'location');
+				redirect(site_url().'mzadm/members', 'location');
 			}
 		}
 		$error = array(
@@ -238,78 +266,34 @@ class Gallery extends CI_Controller {
 		redirect(site_url().'mzadm/gallery', 'location');
 	}
 
-	public function delete($article_id){
-		if(!empty($article_id)){
-			$this->load->model('article');
-			$image_temp = $this->article->get_article($article_id);
-			if (!empty($image_temp)) {
-				if ($this->article->delete_article($article_id)) {
-					$data['msg_success'] = "Delete Image Success";
-				}else{
-					$data['msg_error'] = "Failed deleting image";
-				}
-			}else{
-				$data['msg_error'] = "Failed deleting image";
-			}
-
-			$this->session->set_flashdata($data);
-		}
-
-		redirect(site_url().'mzadm/gallery', 'location'); 
-	}
-
-	/*public function edit(){
+	public function edit()
+	{
 		$this->_check_session();
-		$this->load->model('users');
-		$this->load->helper('url');
-		
+
 		if (!empty($this->uri->rsegment(3)) && is_numeric($this->uri->rsegment(3))) {
-			$this->load->library('form_validation');
-
-			$user_data = $this->users->get_user_byid($this->uri->rsegment(3));
-			unset($user_data->user_pass);
-
-			$h_data = array(
-						'page_id'		=> '',
-						'page_title'	=> $this->page_title,
-						'page_css'		=> ''
-					);
-
-			$n_data = array(
-						'user_name' 	=> $this->session->userdata('user_displayname')
-					);
-
-			$ue_data = array(
-						'edit_data'		=> $user_data,
-						'edit_success'	=> 0
-					);
-
-			$f_data = array(
-						'page_js'		=> $this->_validate_form_js('lib'),
-						'extra_js'		=> $this->_validate_form_js('editUser')
-					);
-
-			if(!empty($this->input->post(NULL, TRUE))){
-
+			$post_data = $this->input->post(NULL);
+			if(!empty($post_data)){
+				// var_dump($post_data);exit;
+				$this->load->library('form_validation');
 				$config = array(
 								array(
-									'field'   => 'i_uname',
-									'label'   => 'Username',
+									'field'   => 'i_title_id',
+									'label'   => 'Title in Indonesian',
 									'rules'   => 'trim|required'
 								),
 								array(
-									'field'   => 'i_email',
-									'label'   => 'Email',
-									'rules'   => 'trim|required|valid_email'
+									'field'   => 'i_title_en',
+									'label'   => 'Title in English',
+									'rules'   => 'trim|required'
 								),
 								array(
-									'field'   => 'i_reemail',
-									'label'   => 'Email Confirmation',
-									'rules'   => 'trim|required|valid_email|matches[i_email]'
-								),   
+									'field'   => 'i_content_id',
+									'label'   => 'Content in Indonesian',
+									'rules'   => 'trim|required'
+								),
 								array(
-									'field'   => 'i_dname',
-									'label'   => 'Display Name',
+									'field'   => 'i_content_en',
+									'label'   => 'Content in English',
 									'rules'   => 'trim|required'
 								)
 							);
@@ -317,67 +301,110 @@ class Gallery extends CI_Controller {
 				$this->form_validation->set_rules($config);
 				if ($this->form_validation->run() == TRUE)
 				{
-					$this->users->update_user_data($this->input->post(NULL, TRUE));
-					$ue_data['edit_success'] = 1;
+					$post_data['article_id'] = $this->uri->rsegment(3);
+					$post_data['excerpt'] = $this->_clean($post_data['i_title_id']);
+					$this->load->model('article');
+					$this->article->update_news($post_data);
+					$ra_data['msg_success'] = "Edit news Success";
+					$this->session->set_flashdata($ra_data);
+					redirect(site_url().'mzadm/news', 'location');
+				}else{
+					$error_msg = $this->form_validation->error_array();
+					// var_dump($error_msg);exit;
+					$error['error_msg'] = $error_msg;
+					$this->session->set_flashdata($error);
+					redirect(site_url().'mzadm/news/add', 'location');
 				}
-			}else{
-
 			}
+
+			$this->load->model('article');
+			$news_data = $this->article->get_news($this->uri->rsegment(3));
+			// var_dump($news_data);exit;
+			$h_data = array(
+						'page_id'		=> '',
+						'page_title'	=> 'AETI - Add News',
+						'page_css'		=> ''
+					);
+
+			$n_data = array(
+						'user_name' 	=> $this->session->userdata('user_displayname')
+					);
+
+			$s_data = array(
+						'news_data'		=> $news_data,
+						'msg_success'	=> $this->session->flashdata('msg_success'),
+						'error_msg'		=> $this->session->flashdata('error_msg')
+					);
+
+			$f_data = array(
+						'page_js'		=> $this->_summernote('lib'),
+						'extra_js'		=> $this->_summernote('block')
+					);
 
 			$view_files = array(
 						'mzadm/header' => $h_data, 
 						'mzadm/headerBlock' => '',
 						'mzadm/navigation' => $n_data,
-						'mzadm/userEdit' => $ue_data,
+						'mzadm/newsEdit' => $s_data,
 						'mzadm/footerBlock' => '',
 						'mzadm/footer' => $f_data
 					);
 			$this->_load_views($view_files);
 		}else{
-			redirect('404');
+			redirect(site_url().'mzadm/news', 'location');
 		}
-	}*/
-
-	function _clean($string) {
-		$string = str_replace(' ', '-', strtolower($string)); // Replaces all spaces with hyphens.
-		$string = substr($string, 0, 20); // Replaces all spaces with hyphens.
-		$string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
-
-		return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
 	}
 
-	function _validate_form_js($type = 'lib'){
+	public function delete($article_id){
+		if(!empty($article_id)){
+			$this->load->model('article');
+			$image_temp = $this->article->get_article($article_id);
+			if (!empty($image_temp)) {
+				if ($this->article->delete_article($article_id)) {
+					$data['msg_success'] = "Delete News Success";
+				}else{
+					$data['msg_error'] = "Failed deleting news";
+				}
+			}else{
+				$data['msg_error'] = "Failed deleting news";
+			}
+
+			$this->session->set_flashdata($data);
+		}
+
+		redirect(site_url().'mzadm/news', 'location'); 
+	}
+
+	function _summernote($type = 'lib'){
 		if($type == 'lib'){
 			return "
+					<script src=\"".js_url('mzadm/plugin/summernote/summernote.min.js')."\"></script>
 					<script src=\"".js_url('mzadm/plugin/jquery-form/jquery-form.min.js')."\"></script>
 					<script src=\"".js_url('mzadm/plugin/jcrop/jquery.Jcrop.min.js')."\"></script>
 					<script src=\"".js_url('mzadm/plugin/jcrop/jquery.color.min.js')."\"></script>
 				";
-		}elseif ($type == 'addRegulation') {
-			return "
-					var \$addRegulation = $('#add_regulation').validate({
-					// Rules for form validation
-						rules : {
-							i_title : {
-								required : true
-							}
-						},
-				
-						// Messages for form validation
-						messages : {
-							i_title : {
-								required : 'Please enter regulation title'
-							}
-						},
-				
-						// Do not change code below
-						errorPlacement : function(error, element) {
-							error.insertAfter(element.parent());
-						}
-					});
-				";
 		}else{
 			return "
+					/*
+					 * SUMMERNOTE EDITOR
+					 */
+					
+					$('#i_content_id').summernote({
+						height : 180,
+						focus : false,
+						tabsize : 2
+					});
+
+					$('#i_content_en').summernote({
+						height : 180,
+						focus : false,
+						tabsize : 2
+					});
+
+					
+					/*
+					 * JCROP
+					 */
 					// aspect ratio
 
 					var aspect_ratio = function() {
@@ -455,16 +482,12 @@ class Gallery extends CI_Controller {
 		}
 	}
 
-	function _superbox_js($type = 'lib'){
-		if($type == 'lib'){
-			return "
-					<script src=\"".js_url('mzadm/plugin/superbox/superbox.min.js')."\"></script>
-				";
-		}else{
-			return "
-					$('.superbox').SuperBox();
-				";
-		}
+	function _clean($string) {
+		$string = str_replace(' ', '-', strtolower($string)); // Replaces all spaces with hyphens.
+		$string = substr($string, 0, 20); // Replaces all spaces with hyphens.
+		$string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+
+		return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
 	}
 
 	function _check_session(){
@@ -483,5 +506,5 @@ class Gallery extends CI_Controller {
 	}
 }
 
-/* End of file gallery.php */
-/* Location: ./application/controllers/mzadm/gallery.php */
+/* End of file members.php */
+/* Location: ./application/controllers/mzadm/members.php */

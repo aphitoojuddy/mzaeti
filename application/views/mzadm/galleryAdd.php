@@ -70,17 +70,6 @@
 					<!-- end col -->
 				</div>
 				<!-- end row -->
-				
-				<?php
-					if ($add_success) {
-				?>
-				<div class="alert alert-block alert-success fade in">
-					<a class="close" data-dismiss="alert" href="#">×</a>
-					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Add User Success!</h4>
-				</div>
-				<?php
-					}
-				?>
 
 				<!--
 					The ID "widget-grid" will start to initialize all widgets below 
@@ -151,7 +140,7 @@
 							</header>
 							<fieldset>
 								<section style="overflow: hidden;">
-									<img src="<?=img_url('gallery/'.$image_temp->image_path)?>" id="target-3" alt="[Jcrop Example]" width="500" />
+									<img src="<?=img_url('gallery/'.$image_temp->image_path)?>" id="target-3" alt="[Jcrop Example]" style="max-width: 800px;" />
 							
 									<div id="preview-pane">
 										<div class="preview-container">
@@ -161,12 +150,23 @@
 							</section>
 							<section>
 							<div>
-								<input type="text" size="4" id="x1" name="x1" />
-								<input type="text" size="4" id="y1" name="y1" />
-								<input type="text" size="4" id="x2" name="x2" />
-								<input type="text" size="4" id="y2" name="y2" />
-								<input type="text" size="4" id="w" name="w" />
-								<input type="text" size="4" id="h" name="h" />
+								<input type="hidden" size="4" id="x1" name="x1" />
+								<input type="hidden" size="4" id="y1" name="y1" />
+								<input type="hidden" size="4" id="x2" name="x2" />
+								<input type="hidden" size="4" id="y2" name="y2" />
+								<input type="hidden" size="4" id="w" name="w" />
+								<input type="hidden" size="4" id="h" name="h" />
+								<input type="hidden" size="4" id="wd" name="wd" />
+								<input type="hidden" size="4" id="hd" name="hd" />
+
+								<input type="hidden" size="4" id="ox1" name="ox1" />
+								<input type="hidden" size="4" id="oy1" name="oy1" />
+								<input type="hidden" size="4" id="ox2" name="ox2" />
+								<input type="hidden" size="4" id="oy2" name="oy2" />
+								<input type="hidden" size="4" id="ow" name="ow" />
+								<input type="hidden" size="4" id="oh" name="oh" />
+								<input type="hidden" size="4" id="owd" name="owd" />
+								<input type="hidden" size="4" id="ohd" name="ohd" />
 							</div>
 							</section>
 							<footer>

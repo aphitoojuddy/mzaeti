@@ -52,27 +52,53 @@
 				<!-- end row -->
 				
 				<?php
-					if ($add_success) {
+					if (!empty($msg_success)) {
 				?>
 				<div class="alert alert-block alert-success fade in">
 					<a class="close" data-dismiss="alert" href="#">×</a>
-					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Add Image Success!</h4>
+					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> <?=$msg_success?></h4>
 				</div>
 				<?php
 					}
 				?>
 
+				<?php
+					if (!empty($msg_error)) {
+				?>
+				<div class="alert alert-block alert-danger fade in">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> <?=$msg_error?></h4>
+				</div>
+				<?php
+					}
+				?>
+
+				<style type="text/css">
+					.superbox-current-img{
+						max-width: 600px;	
+					}
+				</style>
 				<!-- row -->
 				<div class="row">
 					<!-- SuperBox -->
 					<div class="superbox col-sm-12">
 						<div class="well">
-							<h2 class="alert alert-info" style="margin: .5em;"> Click image for info and edit function </h2>
+							<?php
+							if(!empty($gallery_data)){
+							?>
+							<h2 class="alert alert-info" style="margin: .5em;"> Click image for info </h2>
+							<?php
+							}else{
+							?>
+							<h2 class="alert alert-info" style="margin: .5em;"> No data Found </h2>
+							<?php
+							}
+							?>
 							<?php
 							foreach ($gallery_data as $key => $value) {
 							?>
 							<div class="superbox-list">
-								<img src="<?=img_url('gallery/'.$value->downloadable_content_extra)?>" data-img="<?=img_url('gallery/'.$value->downloadable_content)?>" alt="<?=$value->article_content_id?>" title="<?=$value->article_title_id?>" class="superbox-img">
+								<img src="<?=img_url('gallery/'.$value->downloadable_content_extra)?>" data-img="<?=img_url('gallery/'.$value->downloadable_content)?>" alt="<?=$value->article_content_id?>" title="<?=$value->article_title_id?>" data-delete="<?=site_url('mzadm/gallery/delete/'.$value->article_id)?>" class="superbox-img">
 							</div>
 							<?php
 							}
