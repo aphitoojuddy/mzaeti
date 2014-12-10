@@ -188,10 +188,17 @@ class Members extends CI_Controller {
 				$post_data['excerpt'] = $this->_clean($post_data['i_title_id']);
 				$post_data['i_image_file'] = $this->upload->file_name;
 				$this->load->model('article');
-				$image_temp_id = $this->article->insert_member_logo($post_data);
-				$ra_data['msg_success'] = "Add Member Success";
-				$this->session->set_flashdata($ra_data);
-				redirect(site_url().'mzadm/members/add/'.$image_temp_id, 'location');
+				if (!empty($post_data['mode']) && $post_data['mode'] == 'edit') {
+					$image_temp_id = $this->article->edit_member_logo($post_data);
+					$ra_data['msg_success'] = "Edit Member Success";
+					$this->session->set_flashdata($ra_data);
+					redirect(site_url().'mzadm/members/edit/'.$image_temp_id, 'location');
+				}else{
+					$image_temp_id = $this->article->insert_member_logo($post_data);
+					$ra_data['msg_success'] = "Add Member Success";
+					$this->session->set_flashdata($ra_data);
+					redirect(site_url().'mzadm/members/add/'.$image_temp_id, 'location');
+				}
 			}else{
 				$error_msg = $this->form_validation->error_array();
 				$error_msg['i_image_file'] = $this->upload->display_errors('', '');
@@ -318,11 +325,11 @@ class Members extends CI_Controller {
 			}
 
 			$this->load->model('article');
-			$news_data = $this->article->get_news($this->uri->rsegment(3));
-			// var_dump($news_data);exit;
+			$members_data = $this->article->get_member($this->uri->rsegment(3));
+			// var_dump($members_data);exit;
 			$h_data = array(
 						'page_id'		=> '',
-						'page_title'	=> 'AETI - Add News',
+						'page_title'	=> 'AETI - Edit Member',
 						'page_css'		=> ''
 					);
 
@@ -330,10 +337,11 @@ class Members extends CI_Controller {
 						'user_name' 	=> $this->session->userdata('user_displayname')
 					);
 
-			$s_data = array(
-						'news_data'		=> $news_data,
+			$m_data = array(
+						'members_data'	=> $members_data,
 						'msg_success'	=> $this->session->flashdata('msg_success'),
-						'error_msg'		=> $this->session->flashdata('error_msg')
+						'error_msg'		=> $this->session->flashdata('error_msg'),
+						'step'			=> 0
 					);
 
 			$f_data = array(
@@ -345,13 +353,13 @@ class Members extends CI_Controller {
 						'mzadm/header' => $h_data, 
 						'mzadm/headerBlock' => '',
 						'mzadm/navigation' => $n_data,
-						'mzadm/newsEdit' => $s_data,
+						'mzadm/membersEdit' => $m_data,
 						'mzadm/footerBlock' => '',
 						'mzadm/footer' => $f_data
 					);
 			$this->_load_views($view_files);
 		}else{
-			redirect(site_url().'mzadm/news', 'location');
+			redirect(site_url().'mzadm/members', 'location');
 		}
 	}
 
@@ -361,18 +369,18 @@ class Members extends CI_Controller {
 			$image_temp = $this->article->get_article($article_id);
 			if (!empty($image_temp)) {
 				if ($this->article->delete_article($article_id)) {
-					$data['msg_success'] = "Delete News Success";
+					$data['msg_success'] = "Delete Member Success";
 				}else{
-					$data['msg_error'] = "Failed deleting news";
+					$data['msg_error'] = "Failed deleting member";
 				}
 			}else{
-				$data['msg_error'] = "Failed deleting news";
+				$data['msg_error'] = "Failed deleting member";
 			}
 
 			$this->session->set_flashdata($data);
 		}
 
-		redirect(site_url().'mzadm/news', 'location'); 
+		redirect(site_url().'mzadm/members', 'location'); 
 	}
 
 	function _summernote($type = 'lib'){

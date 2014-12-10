@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?=base_url('home')?>"><img src="img/logo.png" alt="AETI"></a>
+          <a class="navbar-brand" href="<?=base_url('home')?>"><img src="<?=img_url('logo-aeti-200.jpg')?>" alt="AETI"></a>
         </div>
         <div class="collapse navbar-collapse">
           <!-- <button class="navbar-btn btn btn-theme-primary pull-right hidden-sm hidden-xs">Sign In</button> -->
@@ -17,7 +17,7 @@
               <a href="<?=site_url('home');?>">Home</a>
             </li>
             <li class="hidden-sm">
-              <a href="<?=site_url('home');?>">News</a>
+              <a href="<?=site_url('news');?>">News</a>
             </li>
             <li class="hidden-sm">
               <a href="<?=site_url('regulation');?>">Regulation</a>
@@ -28,16 +28,22 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="">Organization's Overview</a></li>
-                <li><a href="">Organization's Structure</a></li>
-                <li><a href="">Our Members</a></li>
+                <li><a href="<?=site_url('overview');?>">Organization's Overview</a></li>
+                <!-- <li><a href="<?=site_url('regulation');?>">Organization's Structure</a></li> -->
+                <li><a href="<?=site_url('members');?>">Our Members</a></li>
               </ul>
             </li>
             <li class="hidden-sm">
               <a href="<?=site_url('contact_us');?>">Contact</a>
             </li>
+            <li class="hidden-sm">
+              <a href="<?=site_url('home/id');?>"><img src="<?=img_url('id.png')?>" alt="bahasa indonesia"></a>
+            </li>
+            <li class="hidden-sm">
+              <a href="<?=site_url('home/en');?>"><img src="<?=img_url('en.png')?>" alt="english"></a>
+            </li>
             <!-- Navbar Search -->
-            <li class="hidden-xs" id="navbar-search">
+            <!-- <li class="hidden-xs" id="navbar-search">
               <a href="#">
                 <i class="fa fa-search"></i>
               </a>
@@ -49,7 +55,7 @@
                   </span>
                 </div>
               </div>
-            </li>
+            </li> -->
           </ul>
           <!-- Mobile Search -->
           <form class="navbar-form navbar-right visible-xs" role="search">

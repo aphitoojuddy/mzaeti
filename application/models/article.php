@@ -65,6 +65,23 @@ class Article extends CI_Model {
         return $insert_id;
     }
 
+    function edit_member_logo($member_data)
+    {
+        $this->db->where('article_type', 'article');
+        $this->db->where('article_category', 'members');
+        $this->db->where('article_id', $member_data['article_id']);
+
+        $this->article_title_id    = $member_data['article_title_id'];
+        $this->article_title_en    = $member_data['article_title_en'];
+        $this->article_excerpt     = $member_data['article_excerpt'];
+        $this->article_content_id  = $member_data['article_content_id'];
+        $this->article_content_en  = $member_data['article_content_en'];
+        $this->downloadable_content = $member_data['downloadable_content'];
+        $this->downloadable_content_extra = $member_data['downloadable_content_extra'];
+
+        return $this->db->update('articles', $this);        
+    }
+
     function update_member($member_data)
     {
         $this->db->where('article_type', 'article');

@@ -21,19 +21,15 @@
               </p>
             </div>
             <div class="col-sm-11">
-              <a class="pull-right" href="">Follow @aeti</a>
+              <a class="pull-right" href="https://twitter.com/<?=(!empty($site_data['twitter_id']) ? $site_data['twitter_id'] : '' )?>">Follow @aeti</a>
             </div>
           </div>
           <!-- Contact Us -->
           <div class="col-sm-4">
             <h4><i class="fa fa-map-marker text-theme-primary"></i> Contact Us</h4>
-            <p>Do not hesitate to contact us if you have any questions or feature requests:</p>
+            <!-- <p>Do not hesitate to contact us if you have any questions or feature requests:</p> -->
             <p>
-              San Francisco, CA 94101<br />
-              1987 Lincoln Street<br />
-              Phone: +0 000 000 00 00<br />
-              Fax: +0 000 000 00 00<br />
-              Email: <a href="#">admin@mysite.com</a>
+              <?=(!empty($site_data['address']) ? $site_data['address'] : '' )?>
             </p>
           </div>
         </div>

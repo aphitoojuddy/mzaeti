@@ -8,7 +8,7 @@
             <div class="col-sm-12">
               <ol class="breadcrumb hidden-xs">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Regulation</li>
+                <li class="active">Our Members</li>
               </ol>
             </div>
           </div>
@@ -18,26 +18,28 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <h3 class="headline"><span>Regulations</span></h3>
+            <h3 class="headline"><span>Our Members</span></h3>
           </div>
-          <?php
-            if (!empty($regulation_data)) {
-              foreach ($regulation_data as $key => $value) {
-          ?>
-          <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <?=($lang == 'id' ? $value->article_title_id : $value->article_title_en)?> <a class="btn btn-xs btn-theme-secondary pull-right" href="<?=asset_url().'upload/'.$value->downloadable_content?>">download</a>
-              </div>
-              <div class="panel-body">
+        </div>
+        <?php
+          if (!empty($members_data)) {
+            foreach ($members_data as $key => $value) {
+        ?>
+        <div class="row" style="margin-bottom: 40px;">
+          <div class="col-sm-3">
+            <img src="<?=img_url('logo/'.$value->downloadable_content_extra)?>" style="max-width: 230px;">
+          </div>
+          <div class="col-sm-9">
+              <h3><span><a href="<?=site_url('news/detail/'.$value->article_id)?>"><?=($lang == 'id' ? $value->article_title_id : $value->article_title_en)?></a></span></h3>
+              <div>
                 <?=($lang == 'id' ? $value->article_content_id : $value->article_content_en)?>
               </div>
-            </div> <!-- / .panel -->
           </div>
-          <?php
-              }
+        </div> <!-- / .row -->
+        <?php
             }
-          ?>
+          }
+        ?>
 
           <!-- pagination
           <div class="col-sm-12">
@@ -51,7 +53,7 @@
                 <li><a href="#">»</a></li>
               </ul>
           </div> -->
-        </div> <!-- / .row -->
+        
       </div> <!-- / .container -->
 
     </div> <!-- / .wrapper -->

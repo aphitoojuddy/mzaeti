@@ -8,7 +8,7 @@
             <div class="col-sm-12">
               <ol class="breadcrumb hidden-xs">
                 <li><a href="index.html">Home</a></li>
-                <li class="active">Regulation</li>
+                <li class="active">Organization Overview</li>
               </ol>
             </div>
           </div>
@@ -16,28 +16,25 @@
       </div>
 
       <div class="container">
+        <?php
+          if (!empty($overview_data)) {
+            // foreach ($news_data as $key => $value) {
+              // var_dump($key);
+        ?>
         <div class="row">
           <div class="col-sm-12">
-            <h3 class="headline"><span>Regulations</span></h3>
+            <h3 class="text-center"><a href="javascript:void(0);"><?=($lang == 'id' ? $overview_data->article_title_id : $overview_data->article_title_en)?></a></h3>
           </div>
-          <?php
-            if (!empty($regulation_data)) {
-              foreach ($regulation_data as $key => $value) {
-          ?>
+        </div>
+        <div class="row" style="padding-top: 30px;">
           <div class="col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <?=($lang == 'id' ? $value->article_title_id : $value->article_title_en)?> <a class="btn btn-xs btn-theme-secondary pull-right" href="<?=asset_url().'upload/'.$value->downloadable_content?>">download</a>
-              </div>
-              <div class="panel-body">
-                <?=($lang == 'id' ? $value->article_content_id : $value->article_content_en)?>
-              </div>
-            </div> <!-- / .panel -->
+              <?=($lang == 'id' ? $overview_data->article_content_id : $overview_data->article_content_en)?>
           </div>
-          <?php
-              }
-            }
-          ?>
+        </div> <!-- / .row -->
+        <?php
+            // }
+          }
+        ?>
 
           <!-- pagination
           <div class="col-sm-12">
@@ -51,7 +48,7 @@
                 <li><a href="#">»</a></li>
               </ul>
           </div> -->
-        </div> <!-- / .row -->
+        
       </div> <!-- / .container -->
 
     </div> <!-- / .wrapper -->

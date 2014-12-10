@@ -1,20 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News extends CI_Controller {
+class Overview extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/news
+	 * 		http://example.com/overview
 	 *	- or -  
-	 * 		http://example.com/news/index
+	 * 		http://example.com/overview/index
 	 *	- or -
 	 * Since this controller is set as the default controller in 
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /news/<method_name>
+	 * map to /overview/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
@@ -25,11 +25,11 @@ class News extends CI_Controller {
 			);
 
 		$this->load->model('article');
-		$news_data = $this->article->get_allnews();
+		$overview_data = $this->article->get_overview();
 		// var_dump($news_data);exit;
 		$n_data = array(
 				'lang'			=> $this->session->userdata('user_lang'),
-				'news_data'		=> $news_data
+				'overview_data'		=> $overview_data
 			);
 
 
@@ -45,7 +45,7 @@ class News extends CI_Controller {
 
 		$this->load->view('header', $data);
 		$this->load->view('navigation');
-		$this->load->view('news', $n_data);
+		$this->load->view('overview', $n_data);
 		$this->load->view('footer', $f_data);
 	}
 
@@ -81,7 +81,7 @@ class News extends CI_Controller {
 			$this->load->view('newsDetail', $n_data);
 			$this->load->view('footer', $f_data);
 		}else{
-			redirect(site_url().'news', 'location');
+			redirect(site_url().'overview', 'location');
 		}
 	}
 
@@ -90,5 +90,5 @@ class News extends CI_Controller {
 	}
 }
 
-/* End of file news.php */
-/* Location: ./application/controllers/news.php */
+/* End of file overview.php */
+/* Location: ./application/controllers/overview.php */

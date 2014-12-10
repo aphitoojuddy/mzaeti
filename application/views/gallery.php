@@ -18,60 +18,29 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <h3 class="headline"><span>Latest Items</span></h3>
+            <h3 class="headline"><span>Gallery</span></h3>
           </div>
+          <?php
+            if (!empty($gallery_data)) {
+              foreach ($gallery_data as $key => $value) {
+          ?>
           <div class="col-sm-3">
             <div class="portfolio-item">
               <div class="portfolio-thumbnail">
-                <img class="img-responsive" src="img/general-1.jpg" alt="...">
+                <img class="img-responsive" src="<?=img_url('gallery/'.$value->downloadable_content_extra)?>" alt="...">
                 <div class="mask">
                   <p>
-                    <a href="img/general-1.jpg" data-lightbox="template_showcase"><i class="fa fa-search-plus fa-2x"></i></a>
-                    <a href="portfolio-item.html"><i class="fa fa-info-circle fa-2x"></i></a>
+                    <a href="<?=img_url('gallery/'.$value->downloadable_content)?>" data-lightbox="template_showcase"><i class="fa fa-search-plus fa-2x"></i></a>
+                    <!-- <a href="portfolio-item.html"><i class="fa fa-info-circle fa-2x"></i></a> -->
                   </p>
                 </div>
               </div>
             </div> <!-- / .portfolio-item -->
           </div>
-          <div class="col-sm-3">
-            <div class="portfolio-item">
-              <div class="portfolio-thumbnail">
-                <img class="img-responsive" src="img/general-2.jpg" alt="...">
-                <div class="mask">
-                  <p>
-                    <a href="img/general-2.jpg" data-lightbox="template_showcase"><i class="fa fa-search-plus fa-2x"></i></a>
-                    <a href="portfolio-item.html"><i class="fa fa-info-circle fa-2x"></i></a>
-                  </p>
-                </div>
-              </div>
-            </div> <!-- / .portfolio-item -->
-          </div>
-          <div class="col-sm-3">
-            <div class="portfolio-item">
-              <div class="portfolio-thumbnail">
-                <img class="img-responsive" src="img/general-3.jpg" alt="...">
-                <div class="mask">
-                  <p>
-                    <a href="img/general-3.jpg" data-lightbox="template_showcase"><i class="fa fa-search-plus fa-2x"></i></a>
-                    <a href="portfolio-item.html"><i class="fa fa-info-circle fa-2x"></i></a>
-                  </p>
-                </div>
-              </div>
-            </div> <!-- / .portfolio-item -->
-          </div>
-          <div class="col-sm-3 isotope-item">
-            <div class="portfolio-item">
-              <div class="portfolio-thumbnail">
-                <img class="img-responsive" src="img/general-4.jpg" alt="...">
-                <div class="mask">
-                  <p>
-                    <a href="img/general-2.jpg" data-lightbox="template_showcase"><i class="fa fa-search-plus fa-2x"></i></a>
-                    <a href="portfolio-item.html"><i class="fa fa-info-circle fa-2x"></i></a>
-                  </p>
-                </div>
-              </div>
-            </div> <!-- / .portfolio-item -->
-          </div>
+          <?php
+              }
+            }
+          ?>
         </div> <!-- / .row -->
       </div> <!-- / .container -->
 

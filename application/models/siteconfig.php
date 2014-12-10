@@ -16,6 +16,16 @@ class Siteconfig extends CI_Model {
         $query = $this->db->get('configs');
         return $query->result();
     }
+    
+    function get_setting($var_name = '')
+    {
+        if(!empty($var_name)){
+            $this->db->where('config_var', $var_name);
+        }
+
+        $query = $this->db->get('configs');
+        return $query->row();
+    }
 
     function update_setting($user_data)
     {

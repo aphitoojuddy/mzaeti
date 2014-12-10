@@ -25,9 +25,9 @@
 					<li>
 						<a href="#"><i class="fa fa-lg fa-fw fa-file-text-o"></i> <span class="menu-item-parent">Pages</span></a>
 						<ul>
-							<li>
+							<!-- <li>
 								<a href="<?=site_url('mzadm/pages');?>">View All</a>
-							</li>
+							</li> -->
 							<li>
 								<a href="<?=site_url('mzadm/gallery');?>">Gallery</a>
 							</li>
@@ -43,9 +43,9 @@
 									<li>
 										<a href="<?=site_url('mzadm/overview');?>"> Organization Overview </a>
 									</li>
-									<li>
+									<!-- <li>
 										<a href="<?=site_url('mzadm/structure');?>"> Organization Structure </a>
-									</li>
+									</li> -->
 									<li>
 										<a href="<?=site_url('mzadm/members');?>"> Our Members </a>
 									</li>

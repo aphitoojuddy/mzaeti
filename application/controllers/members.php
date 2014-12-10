@@ -1,20 +1,20 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News extends CI_Controller {
+class Members extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/news
+	 * 		http://example.com/members
 	 *	- or -  
-	 * 		http://example.com/news/index
+	 * 		http://example.com/members/index
 	 *	- or -
 	 * Since this controller is set as the default controller in 
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /news/<method_name>
+	 * map to /members/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
@@ -25,11 +25,11 @@ class News extends CI_Controller {
 			);
 
 		$this->load->model('article');
-		$news_data = $this->article->get_allnews();
+		$members_data = $this->article->get_allmembers();
 		// var_dump($news_data);exit;
 		$n_data = array(
 				'lang'			=> $this->session->userdata('user_lang'),
-				'news_data'		=> $news_data
+				'members_data'		=> $members_data
 			);
 
 
@@ -45,7 +45,7 @@ class News extends CI_Controller {
 
 		$this->load->view('header', $data);
 		$this->load->view('navigation');
-		$this->load->view('news', $n_data);
+		$this->load->view('members', $n_data);
 		$this->load->view('footer', $f_data);
 	}
 
@@ -59,11 +59,11 @@ class News extends CI_Controller {
 				);
 
 			$this->load->model('article');
-			$news_data = $this->article->get_news($this->uri->rsegment(3));
+			$member_data = $this->article->get_member($this->uri->rsegment(3));
 			// var_dump($news_data);exit;
 			$n_data = array(
 					'lang'			=> $this->session->userdata('user_lang'),
-					'news_data'		=> $news_data
+					'news_data'		=> $member_data
 				);
 
 			$this->load->model('siteconfig');
@@ -78,7 +78,7 @@ class News extends CI_Controller {
 
 			$this->load->view('header', $data);
 			$this->load->view('navigation');
-			$this->load->view('newsDetail', $n_data);
+			$this->load->view('membersDetail', $n_data);
 			$this->load->view('footer', $f_data);
 		}else{
 			redirect(site_url().'news', 'location');
@@ -90,5 +90,5 @@ class News extends CI_Controller {
 	}
 }
 
-/* End of file news.php */
-/* Location: ./application/controllers/news.php */
+/* End of file members.php */
+/* Location: ./application/controllers/members.php */

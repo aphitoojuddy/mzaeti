@@ -80,7 +80,7 @@
 											<?=$value->article_date?></small></h3>
 									<p><?=substr($value->article_content_id, 0, 500)?></p>
 									<!-- <a class="btn btn-primary" href="<?=site_url('mzadm/members/view/'.$value->article_id)?>"> Read more </a> -->
-									<a class="btn btn-warning" href="<?=site_url('mzadm/members/edit/'.$value->article_id)?>"> Edit </a>
+									<!-- <a class="btn btn-warning" href="<?=site_url('mzadm/members/edit/'.$value->article_id)?>"> Edit </a> -->
 									<a class="btn btn-danger" href="<?=site_url('mzadm/members/delete/'.$value->article_id)?>"> Delete </a>
 								</div>
 							</div>
