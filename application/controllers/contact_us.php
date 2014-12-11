@@ -19,14 +19,29 @@ class Contact_us extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->_check_session_lang();
 		$data = array(
 					'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
 				);
 
+		$this->load->model('siteconfig');
+		$config_data = $this->siteconfig->get_setting('site_twitter');
+		$site_data['twitter_id'] = $config_data->config_value;
+		$config_data = $this->siteconfig->get_setting('site_address');
+		$site_data['address'] = $config_data->config_value;
+
+		$f_data = array(
+				'site_data'		=> $site_data
+			);
+
 		$this->load->view('header', $data);
 		$this->load->view('navigation');
-		$this->load->view('contactus', $data);
-		$this->load->view('footer', $data);
+		$this->load->view('contactus');
+		$this->load->view('footer', $f_data);
+	}
+
+	function _check_session_lang(){
+		if(empty($this->session->userdata('user_lang'))) $this->session->set_userdata(array('user_lang' => 'id'));
 	}
 }
 
