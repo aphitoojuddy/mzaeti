@@ -27,6 +27,11 @@ class Regulation extends CI_Controller {
 		$this->load->model('article');
 		$regulation_data = $this->article->get_allregulation();
 		// var_dump($regulation_data);exit;
+
+		$nav_data = array(
+				'current_page'		=> 'regulation'
+			);
+
 		$r_data = array(
 				'lang'			=> $this->session->userdata('user_lang'),
 				'regulation_data'	=> $regulation_data
@@ -43,7 +48,7 @@ class Regulation extends CI_Controller {
 			);
 
 		$this->load->view('header', $data);
-		$this->load->view('navigation');
+		$this->load->view('navigation', $nav_data);
 		$this->load->view('regulation', $r_data);
 		$this->load->view('footer', $f_data);
 	}

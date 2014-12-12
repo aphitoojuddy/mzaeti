@@ -24,6 +24,10 @@ class Overview extends CI_Controller {
 				'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
 			);
 
+		$nav_data = array(
+				'current_page'		=> 'overview'
+			);
+
 		$this->load->model('article');
 		$overview_data = $this->article->get_overview();
 		// var_dump($news_data);exit;
@@ -44,7 +48,7 @@ class Overview extends CI_Controller {
 			);
 
 		$this->load->view('header', $data);
-		$this->load->view('navigation');
+		$this->load->view('navigation', $nav_data);
 		$this->load->view('overview', $n_data);
 		$this->load->view('footer', $f_data);
 	}

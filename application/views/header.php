@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="<?=img_url('apple-touch-icon-144x144.png')?>" />
     <link rel="apple-touch-icon" sizes="152x152" href="<?=img_url('apple-touch-icon-152x152.png')?>" />
 
-    <title><?=$page_title;?> - Home</title>
+    <title><?=$page_title;?></title>
 
     <!-- Custom styles for this template -->
     <link href="<?=css_url('style.css');?>" rel="stylesheet">

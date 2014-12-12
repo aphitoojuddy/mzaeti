@@ -46,11 +46,11 @@
 				<!-- end row -->
 				
 				<?php
-					if ($add_success) {
+					if (!empty($msg_success)) {
 				?>
 				<div class="alert alert-block alert-success fade in">
 					<a class="close" data-dismiss="alert" href="#">×</a>
-					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Add Regulation Success!</h4>
+					<h4 class="alert-heading"><i class="fa fa-check-square-o"></i> <?=$msg_success?></h4>
 				</div>
 				<?php
 					}
@@ -113,6 +113,7 @@
 													<th data-hide="phone"><i class="fa fa-fw fa-envelope-o text-muted hidden-md hidden-sm hidden-xs"></i> Description</th>
 													<th data-hide="expand"><i class="fa fa-fw fa-file-text-o text-muted hidden-md hidden-sm hidden-xs"></i>File</th>
 													<th>Status</th>
+													<th align="center">Action</th>
 													<!-- <th data-hide="phone" class="text-center">Action</th> -->
 												</tr>
 											</thead>
@@ -128,6 +129,9 @@
 													<td><?=$value->article_content_id?></td>
 													<td><a href="<?=asset_url()?>upload/<?=$value->downloadable_content?>"><?=$value->downloadable_content?></a></td>
 													<td><?=($value->article_status == 1 ? "active" : "inactive")?></td>
+													<td align="center">
+														<a href="<?=site_url('mzadm/regulation/delete/'.$value->article_id)?>"><i class="fa fa-fw fa-times text-muted hidden-md hidden-sm hidden-xs" style="color: red;"></i></a>
+													</td>
 													<!-- <td class="text-center">
 														<a href="<?=site_url('mzadm/regulation/edit/'.$value->article_id)?>"><i class="fa fa-fw fa-edit text-muted hidden-md hidden-sm hidden-xs"></i> Edit</a>
 														<a href="<?=site_url('mzadm/regulation/block/'.$value->article_id)?>"><i class="fa fa-fw fa-lock text-muted hidden-md hidden-sm hidden-xs"></i> Block</a>

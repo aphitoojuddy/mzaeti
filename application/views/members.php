@@ -30,7 +30,7 @@
             <img src="<?=img_url('logo/'.$value->downloadable_content_extra)?>" style="max-width: 230px;">
           </div>
           <div class="col-sm-9">
-              <h3><span><a href="<?=site_url('news/detail/'.$value->article_id)?>"><?=($lang == 'id' ? $value->article_title_id : $value->article_title_en)?></a></span></h3>
+              <h3><span><a href="<?=site_url('members/detail/'.$value->article_id)?>"><?=($lang == 'id' ? $value->article_title_id : $value->article_title_en)?></a></span></h3>
               <div>
                 <?=($lang == 'id' ? $value->article_content_id : $value->article_content_en)?>
               </div>

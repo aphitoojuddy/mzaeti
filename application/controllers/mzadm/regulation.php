@@ -37,7 +37,7 @@ class Regulation extends CI_Controller {
 
 		$r_data = array(
 					'regulations_data'	=> $regulations_data,
-					'add_success'		=> $this->session->flashdata('add_success'),
+					'msg_success'		=> $this->session->flashdata('msg_success'),
 					'error_msg'			=> $this->session->flashdata('error_msg')
 				);
 
@@ -85,7 +85,7 @@ class Regulation extends CI_Controller {
 				$post_data['i_regulation_file'] = $this->upload->file_name;
 				$this->load->model('article');
 				$this->article->insert_regulation($post_data);
-				$ra_data['add_success'] = 1;
+				$ra_data['msg_success'] = "Add Regulation Success";
 				$this->session->set_flashdata($ra_data);
 				redirect(site_url().'mzadm/regulation', 'location');
 			}else{
@@ -99,6 +99,26 @@ class Regulation extends CI_Controller {
 			}
 		}
 		redirect(site_url().'mzadm/regulation', 'location');
+	}
+
+	public function delete($article_id){
+		if(!empty($article_id)){
+			$this->load->model('article');
+			$image_temp = $this->article->get_article($article_id);
+			if (!empty($image_temp)) {
+				if ($this->article->delete_article($article_id)) {
+					$data['msg_success'] = "Delete Regulation Success";
+				}else{
+					$data['msg_error'] = "Failed deleting regulation";
+				}
+			}else{
+				$data['msg_error'] = "Failed deleting regulation";
+			}
+
+			$this->session->set_flashdata($data);
+		}
+
+		redirect(site_url().'mzadm/regulation', 'location'); 
 	}
 
 	/*public function edit(){

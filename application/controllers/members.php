@@ -24,6 +24,10 @@ class Members extends CI_Controller {
 				'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
 			);
 
+		$nav_data = array(
+				'current_page'		=> 'members'
+			);
+
 		$this->load->model('article');
 		$members_data = $this->article->get_allmembers();
 		// var_dump($news_data);exit;
@@ -44,7 +48,7 @@ class Members extends CI_Controller {
 			);
 
 		$this->load->view('header', $data);
-		$this->load->view('navigation');
+		$this->load->view('navigation', $nav_data);
 		$this->load->view('members', $n_data);
 		$this->load->view('footer', $f_data);
 	}
@@ -58,12 +62,17 @@ class Members extends CI_Controller {
 					'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
 				);
 
+			$nav_data = array(
+					'current_page'		=> 'members'
+				);
+
+
 			$this->load->model('article');
 			$member_data = $this->article->get_member($this->uri->rsegment(3));
 			// var_dump($news_data);exit;
 			$n_data = array(
 					'lang'			=> $this->session->userdata('user_lang'),
-					'news_data'		=> $member_data
+					'member_data'		=> $member_data
 				);
 
 			$this->load->model('siteconfig');
@@ -77,11 +86,11 @@ class Members extends CI_Controller {
 				);
 
 			$this->load->view('header', $data);
-			$this->load->view('navigation');
+			$this->load->view('navigation', $nav_data);
 			$this->load->view('membersDetail', $n_data);
 			$this->load->view('footer', $f_data);
 		}else{
-			redirect(site_url().'news', 'location');
+			redirect(site_url().'members', 'location');
 		}
 	}
 

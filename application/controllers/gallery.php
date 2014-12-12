@@ -28,6 +28,11 @@ class Gallery extends CI_Controller {
 		$this->load->model('article');
 		$gallery_data = $this->article->get_allgallery();
 		// var_dump($gallery_data);exit;
+
+		$nav_data = array(
+				'current_page'		=> 'gallery'
+			);
+
 		$g_data = array(
 				'lang'			=> $this->session->userdata('user_lang'),
 				'gallery_data'		=> $gallery_data
@@ -44,7 +49,7 @@ class Gallery extends CI_Controller {
 			);
 
 		$this->load->view('header', $data);
-		$this->load->view('navigation');
+		$this->load->view('navigation', $nav_data);
 		$this->load->view('gallery', $g_data);
 		$this->load->view('footer', $f_data);
 	}

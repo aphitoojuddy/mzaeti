@@ -1,22 +1,23 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Structure extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/home
+	 * 		http://example.com/structure
 	 *	- or -  
-	 * 		http://example.com/home/index
+	 * 		http://example.com/structure/index
 	 *	- or -
 	 * Since this controller is set as the default controller in 
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /home/<method_name>
+	 * map to /structure/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+
 	public function index()
 	{
 		$this->_check_session_lang();
@@ -25,17 +26,15 @@ class Home extends CI_Controller {
 			);
 
 		$nav_data = array(
-				'current_page'		=> 'home'
+				'current_page'		=> 'structure'
 			);
 
 		$this->load->model('article');
-		$news_data = $this->article->get_allnews();
-		$members_data = $this->article->get_allmembers();
-
-		$h_data = array(
+		$overview_data = $this->article->get_overview();
+		// var_dump($news_data);exit;
+		$n_data = array(
 				'lang'			=> $this->session->userdata('user_lang'),
-				'news_data'		=> $news_data,
-				'members_data'	=> $members_data
+				'overview_data'		=> $overview_data
 			);
 
 
@@ -51,20 +50,8 @@ class Home extends CI_Controller {
 
 		$this->load->view('header', $data);
 		$this->load->view('navigation', $nav_data);
-		$this->load->view('home', $h_data);
+		$this->load->view('structure', $n_data);
 		$this->load->view('footer', $f_data);
-	}
-
-	public function id()
-	{
-		$this->session->set_userdata(array('user_lang' => 'id'));
-		redirect($_SERVER['HTTP_REFERER'], 'location');
-	}
-
-	public function en()
-	{
-		$this->session->set_userdata(array('user_lang' => 'en'));
-		redirect($_SERVER['HTTP_REFERER'], 'location');
 	}
 
 	function _check_session_lang(){
@@ -72,5 +59,5 @@ class Home extends CI_Controller {
 	}
 }
 
-/* End of file home.php */
-/* Location: ./application/controllers/home.php */
+/* End of file structure.php */
+/* Location: ./application/controllers/structure.php */

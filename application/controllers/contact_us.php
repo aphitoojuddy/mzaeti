@@ -24,19 +24,41 @@ class Contact_us extends CI_Controller {
 					'page_title'	=> 'AETI - Asosiasi Eksportir Timah Indonesia'
 				);
 
+		$nav_data = array(
+				'current_page'		=> 'contact_us'
+			);
+
 		$this->load->model('siteconfig');
 		$config_data = $this->siteconfig->get_setting('site_twitter');
 		$site_data['twitter_id'] = $config_data->config_value;
 		$config_data = $this->siteconfig->get_setting('site_address');
 		$site_data['address'] = $config_data->config_value;
+		
+		$contactus_data['twitter_id'] = $site_data['twitter_id'];
+		$contactus_data['address'] = $site_data['address'];
+		$config_data = $this->siteconfig->get_setting('site_phone');
+		$contactus_data['phone'] = $config_data->config_value;
+		$config_data = $this->siteconfig->get_setting('site_fax');
+		$contactus_data['fax'] = $config_data->config_value;
+		$config_data = $this->siteconfig->get_setting('site_email');
+		$contactus_data['email'] = $config_data->config_value;
+
+		$contactus_data['preemail'] = "Jika ada yang ingin Anda tanyakan mengenai Asosiasi Eksportir Timah Indonesia, Anda dapat meninggalkan pesan di bawah ini.";
+		if ($this->session->userdata('user_lang') != 'id') {
+			$contactus_data['preemail'] = "If you want to get more information about AETI, feel free to leave us a message.";
+		}
+
+		$c_data = array(
+				'contactus_data'		=> $contactus_data
+			);
 
 		$f_data = array(
 				'site_data'		=> $site_data
 			);
 
 		$this->load->view('header', $data);
-		$this->load->view('navigation');
-		$this->load->view('contactus');
+		$this->load->view('navigation', $nav_data);
+		$this->load->view('contactus', $c_data);
 		$this->load->view('footer', $f_data);
 	}
 

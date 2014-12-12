@@ -13,28 +13,28 @@
         <div class="collapse navbar-collapse">
           <!-- <button class="navbar-btn btn btn-theme-primary pull-right hidden-sm hidden-xs">Sign In</button> -->
           <ul class="nav navbar-nav navbar-right">
-            <li class="hidden-sm active">
+            <li class="hidden-sm <?=($current_page == 'home' ? 'active' : '')?>">
               <a href="<?=site_url('home');?>">Home</a>
             </li>
-            <li class="hidden-sm">
+            <li class="hidden-sm <?=($current_page == 'news' ? 'active' : '')?>">
               <a href="<?=site_url('news');?>">News</a>
             </li>
-            <li class="hidden-sm">
+            <li class="hidden-sm <?=($current_page == 'regulation' ? 'active' : '')?>">
               <a href="<?=site_url('regulation');?>">Regulation</a>
             </li>
-            <li class="hidden-sm">
+            <li class="hidden-sm <?=($current_page == 'gallery' ? 'active' : '')?>">
               <a href="<?=site_url('gallery');?>">Gallery</a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown <?=(($current_page == 'overview') || ($current_page == 'members') || ($current_page == 'structure') ? 'active' : '')?>">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<?=site_url('overview');?>">Organization's Overview</a></li>
-                <!-- <li><a href="<?=site_url('regulation');?>">Organization's Structure</a></li> -->
+                <li><a href="<?=site_url('structure');?>">Organization's Structure</a></li>
                 <li><a href="<?=site_url('members');?>">Our Members</a></li>
               </ul>
             </li>
-            <li class="hidden-sm">
-              <a href="<?=site_url('contact_us');?>">Contact</a>
+            <li class="hidden-sm <?=($current_page == 'contact_us' ? 'active' : '')?>">
+              <a href="<?=site_url('contact_us');?>">Contact Us</a>
             </li>
             <li class="hidden-sm">
               <a href="<?=site_url('home/id');?>"><img src="<?=img_url('id.png')?>" alt="bahasa indonesia"></a>

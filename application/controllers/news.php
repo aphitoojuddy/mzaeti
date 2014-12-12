@@ -27,6 +27,11 @@ class News extends CI_Controller {
 		$this->load->model('article');
 		$news_data = $this->article->get_allnews();
 		// var_dump($news_data);exit;
+
+		$nav_data = array(
+				'current_page'		=> 'news'
+			);
+
 		$n_data = array(
 				'lang'			=> $this->session->userdata('user_lang'),
 				'news_data'		=> $news_data
@@ -44,7 +49,7 @@ class News extends CI_Controller {
 			);
 
 		$this->load->view('header', $data);
-		$this->load->view('navigation');
+		$this->load->view('navigation', $nav_data);
 		$this->load->view('news', $n_data);
 		$this->load->view('footer', $f_data);
 	}
